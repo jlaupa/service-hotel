@@ -72,7 +72,7 @@ composer test-a // for api tersting
 ```
 
 Run:
-![Tests](additional/tests-ok.jpg?raw=true)
+![Tests](https://github.com/miamius/service-hotel/blob/a82b4f1a8192e01ca42c4ca14cf74776def09468/additional/tests-ok.JPG?raw=true)
 
 ### Main File
 * Config/routes.php
