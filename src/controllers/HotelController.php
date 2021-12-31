@@ -25,7 +25,7 @@ class HotelController extends BaseController
     public function actions(): array
     {
         $actions = parent::actions();
-        unset($actions['view'], $actions['search'],);
+        unset($actions['view']);
 
         return $actions;
     }
@@ -56,7 +56,6 @@ class HotelController extends BaseController
         Request $request
     ): Users {
         $hotelId = $request->getQueryParam('hotel_id');
-
         $hotel = $hotelService->findOneById($hotelId);
 
         return $userService->getUsersBookedByHotel($hotel);
