@@ -1,0 +1,55 @@
+version: '3.7'
+services:
+  nginx-api:
+    image: nginx:latest
+    container_name: nginx-api-container
+
+    ports:
+      - "8097:80"
+    volumes:
+      - ./:/var/www/html
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+    networks:
+      - container-apis-network
+
+  php-fpm-api:
+    build: ./docker/php7.3
+    container_name: php-api-container
+    volumes:
+      - ./:/var/www/html
+    networks:
+      - container-apis-network
+    expose:
+      - 9000
+
+  postgre-api:
+    image: postgres:11.5
+    container_name: postgre-api-container
+    ports:
+      - "5453:5432"
+    environment:
+      POSTGRES_PASSWORD: Thn2022
+      POSTGRES_USER: root
+      POSTGRES_MULTIPLE_DATABASES: thn,thn_test
+    volumes:
+      - postgre-api-vol:/var/lib/postgresql/data
+    networks:
+      - container-apis-network
+
+  mock-server-thn-api:
+    container_name: mock-server-thn-api-container
+    image: mockserver/mockserver:mockserver-5.11.1
+    command: -logLevel INFO -serverPort 1096 -proxyRemotePort 1096 -proxyRemoteHost localhost
+    ports:
+      - 1097:1096
+    networks:
+      - container-apis-network
+
+networks:
+  container-apis-network:
+    name: container-apis-network
+    driver: "bridge"
+volumes:
+  data:
+    driver: "local"
+  postgre-api-vol:

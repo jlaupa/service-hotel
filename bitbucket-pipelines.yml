@@ -1,0 +1,7 @@
+image: cytopia/php-cs-fixer:latest-php7.3
+
+pipelines:
+    default:
+        - step:
+              script:
+                  - php-cs-fixer fix --rules=@Symfony,@PSR2,-no_superfluous_phpdoc_tags --dry-run --diff .

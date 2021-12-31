@@ -1,0 +1,8 @@
+actor: IntegrationTester
+modules:
+    enabled:
+        - \Helper\Integration
+        - Mockery
+        - Yii2:
+              part: [orm, email, fixtures, events]
+              cleanup: true

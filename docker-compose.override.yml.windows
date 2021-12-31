@@ -1,0 +1,10 @@
+version: '3.7'
+services:
+  postgre-api:
+    volumes:
+        - postgre-api-vol:/var/lib/postgresql/data
+
+volumes:
+  data:
+    driver: "local"
+  postgre-api-vol:

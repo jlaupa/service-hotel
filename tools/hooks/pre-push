@@ -1,0 +1,27 @@
+#!/bin/sh
+
+#PROJECT=`docker exec php-api-container php -r "echo dirname(dirname(dirname(realpath('$0'))));"`
+
+echo "Running Unit Tests"
+docker exec php-api-container /var/www/html/vendor/bin/codecept run unit
+if [ $? != 0 ]
+then
+    echo "Fix the error before commit."
+    exit 1
+fi
+
+echo "Running Integration Tests"
+docker exec php-api-container /var/www/html/vendor/bin/codecept run integration
+if [ $? != 0 ]
+then
+    echo "Fix the error before commit."
+    exit 1
+fi
+
+echo "Running API Tests"
+docker exec php-api-container /var/www/html/vendor/bin/codecept run api
+if [ $? != 0 ]
+then
+    echo "Fix the error before commit."
+    exit 1
+fi
